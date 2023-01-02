@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 
@@ -120,11 +121,11 @@ const CampaignDetails = () => {
               </div>
 
               <CustomButton 
-                btnType="button"
-                title="Fund Campaign"
-                styles="w-full bg-[#8c6dfd]"
-                handleClick={handleDonate}
-              />
+  btnType="button"
+  title={address ? 'Fund Campaign' : 'Connect'}
+  styles={address ? 'w-full bg-[#8c6dfd]' : 'bg-[#8c6dfd]'}
+  handleClick={address ? handleDonate : connect}
+/>
             </div>
           </div>
         </div>
