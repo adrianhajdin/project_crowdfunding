@@ -29,10 +29,14 @@ const CampaignDetails = () => {
   }, [contract, address])
 
   const handleDonate = async () => {
+    if (amount === '') {
+      window.alert('Please enter a donation amount');
+      return;
+    }
     setIsLoading(true);
-
+  
     await donate(state.pId, amount); 
-
+  
     navigate('/')
     setIsLoading(false);
   }
