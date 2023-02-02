@@ -67,3 +67,12 @@ contract CrowdFunding {
         return allCampaigns;
     }
 }
+
+/*CODE EXPLANATION:
+This is a smart contract written in the Solidity programming language for a crowdfunding platform on the Ethereum blockchain. 
+It allows users to create campaigns with a title, description, target amount, deadline, and image. It also allows users to donate 
+to campaigns and provides a function to view the list of all campaigns and their details, as well as the list of donators and the amounts they donated. 
+The contract uses a mapping to store the campaigns, with each campaign being assigned a unique identifier (ID). The number of campaigns is stored in the 
+"numberOfCampaigns" variable.
+
+*/
