@@ -10,7 +10,7 @@ import { thirdweb } from '../assets';
 const CampaignDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const { donate, getDonations, contract, address, getCampaigns } = useStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -24,8 +24,29 @@ const CampaignDetails = () => {
     setDonators(data);
   }
 
+  const [totalCampaignsOfOwner, setTotalCampaignOfOwner] = useState(0) 
+
+  let allCampaigns = [];
+  
+  // To get the total number of campaigns of the perticular owner
+  const countOccurrences = (targetOwner) => {
+    const totalOccurrence = allCampaigns.flat().filter(item => item.owner === targetOwner).length;
+    setTotalCampaignOfOwner(totalOccurrence)
+  };
+  
+  // To fetch the campaigns data from the getCapaigns()
+  const fetchDataAndCount = async () => {
+    const data = await getCampaigns();
+    allCampaigns.push(data); // pushing all the fetched data to the "allCampaigns" empty array 
+    const targetOwner = state.owner; // to compare the the owner with the campaign owner
+    countOccurrences(targetOwner);
+  };
+  
+  // console.log(totalCampaignOfOwner)
+  
+
   useEffect(() => {
-    if(contract) fetchDonators();
+    if(contract) fetchDonators(), fetchDataAndCount();
   }, [contract, address])
 
   const handleDonate = async () => {
@@ -68,7 +89,7 @@ const CampaignDetails = () => {
               </div>
               <div>
                 <h4 className="font-epilogue font-semibold text-[14px] text-white break-all">{state.owner}</h4>
-                <p className="mt-[4px] font-epilogue font-normal text-[12px] text-[#808191]">10 Campaigns</p>
+                <p className="mt-[4px] font-epilogue font-normal text-[12px] text-[#808191]">{totalCampaignsOfOwner} Campaigns</p>
               </div>
             </div>
           </div>
