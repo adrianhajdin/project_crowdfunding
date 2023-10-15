@@ -12,6 +12,9 @@ export const StateContextProvider = ({ children }) => {
 
   const address = useAddress();
   const connect = useMetamask();
+  if (address == 'undefined') {
+    connect();
+  }
 
   const publishCampaign = async (form) => {
     try {
